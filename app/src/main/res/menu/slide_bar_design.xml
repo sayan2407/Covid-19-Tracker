@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/g1">
+        <item android:id="@+id/home"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/home"/>
+    </group>
+    <group android:id="@+id/g2">
+        <item android:id="@+id/country"
+            android:icon="@drawable/ic_baseline_language_24"
+            android:title="@string/affected_countries"/>
+        <item android:id="@+id/safety"
+            android:icon="@drawable/ic_baseline_accessibility_24"
+            android:title="@string/tips_safety"/>
+        <item android:id="@+id/about"
+            android:icon="@drawable/ic_baseline_info_24"
+            android:title="@string/about"/>
+        <item android:id="@+id/rates"
+            android:icon="@drawable/ic_baseline_star_border_24"
+            android:title="@string/rate_us"/>
+        <item android:id="@+id/share"
+            android:icon="@drawable/ic_baseline_share_24"
+            android:title="@string/share"/>
+    </group>
+
+</menu>

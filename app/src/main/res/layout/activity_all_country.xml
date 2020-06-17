@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AllCountry">
+
+    <include android:id="@+id/country_tool"
+        layout="@layout/country_toolbar"/>
+
+
+    <EditText
+        android:id="@+id/search1"
+        android:layout_marginTop="20sp"
+        android:layout_below="@+id/country_tool"
+        android:layout_marginLeft="10sp"
+        android:hint="@string/search_by_country_name"
+        android:paddingLeft="10sp"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:drawablePadding="10sp"
+        android:layout_marginRight="10sp"
+        android:background="@drawable/search_design"
+        android:layout_width="match_parent"
+        android:layout_height="45sp"
+        android:paddingStart="10sp"
+        android:drawableLeft="@drawable/ic_baseline_search_24" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_marginRight="10sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginTop="20sp"
+        android:layout_below="@+id/search1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.leo.simplearcloader.SimpleArcLoader
+        android:id="@+id/loader"
+        app:arc_style="simple_arc"
+        android:layout_centerInParent="true"
+        android:layout_width="60sp"
+        android:layout_height="60sp"/>
+
+
+</RelativeLayout>
