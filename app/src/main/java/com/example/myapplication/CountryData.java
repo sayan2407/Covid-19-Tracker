@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +29,26 @@ public class CountryData extends AppCompatActivity {
     float c,d,a,r;
     TextView popu;
     PieChartView pieChart;
+    private AdView mAdView,mAdView1,mAdView2,mAdView3,mAdView4,mAdView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_data);
         setuptoolbar();
+        MobileAds.initialize(this,"ca-app-pub-6849909083372425~5754406553");
+        mAdView = findViewById(R.id.adView1);
+        mAdView1 = findViewById(R.id.adView2);
+        mAdView2 = findViewById(R.id.adView3);
+        mAdView3 = findViewById(R.id.adView4);
+        mAdView4 = findViewById(R.id.adView5);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView1.loadAd(adRequest);
+        mAdView2.loadAd(adRequest);
+        mAdView3.loadAd(adRequest);
+        mAdView4.loadAd(adRequest);
+
         cname=toolbar.findViewById(R.id.country);
         pieChart=findViewById(R.id.piechart);
         flags=toolbar.findViewById(R.id.flagImage);
@@ -95,6 +112,8 @@ public class CountryData extends AppCompatActivity {
         todaycase.setText(tcase);
         todaydeath.setText(tdeath);
         todayrecovery.setText(trecover);
+
+
 
     }
     public void setuptoolbar()

@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,13 +38,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AllCountry extends AppCompatActivity {
     ArrayList<String> countryname, flagpic, cases, todayCases, deaths, todayDeaths, recover, todayRecover, active, critical, populations, tests;
     ListView listView;
     SimpleArcLoader loader;
     EditText search;
-    MyAdapter myAdapter;
+    List<ItemsModel> modelList=new ArrayList<>();
+    CustomAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,16 +94,24 @@ public class AllCountry extends AppCompatActivity {
                         populations.add(object.getString("population"));
                         tests.add(object.getString("tests"));
                         flagpic.add(pic.getString("flag"));
+
+                        ItemsModel itemsModel = new ItemsModel(object.getString("country"),pic.getString("flag"),object.getString("cases"),object.getString("todayCases"),object.getString("deaths"),object.getString("todayDeaths"),object.getString("recovered"),object.getString("todayRecovered"),object.getString("active"),object.getString("critical"),object.getString("population"),object.getString("tests"));
+                        modelList.add(itemsModel);
+                        //String cname, String cflag, String tcase, String todayCases, String deaths, String todayDeaths, String recovered, String todayRecover, String active, String critical, String population, String tests
                     }
                     //    ArrayAdapter<String> adapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,countryname);
-                    myAdapter = new MyAdapter(getApplication(), countryname, flagpic, cases);
-                    listView.setAdapter(myAdapter);
+                  //  myAdapter = new MyAdapter(getApplication(), countryname, flagpic, cases);
+                  //  listView.setAdapter(myAdapter);
+
+                    customAdapter=new CustomAdapter(modelList,getApplicationContext());
+                    listView.setAdapter(customAdapter);
                     loader.setVisibility(View.INVISIBLE);
 
 
                     //       Log.d("country",object.getString("country"));
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
 
             }
@@ -107,6 +119,7 @@ public class AllCountry extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(AllCountry.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                loader.setVisibility(View.INVISIBLE);
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -115,18 +128,19 @@ public class AllCountry extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Toast.makeText(getApplicationContext(),countryname.get(position),Toast.LENGTH_LONG).show();
-                String country = countryname.get(position);
-                String totalCase = cases.get(position);
-                String daillyCase = todayCases.get(position);
-                String died = deaths.get(position);
-                String daillyDied = todayDeaths.get(position);
-                String recov = recover.get(position);
-                String daillyRecov = todayRecover.get(position);
-                String activeCase = active.get(position);
-                String criticalCase = critical.get(position);
-                String poulation = populations.get(position);
-                String test = tests.get(position);
-                String flagImage = flagpic.get(position);
+
+                String country = modelList.get(position).getCname();
+                String totalCase = modelList.get(position).getTcase();
+                String daillyCase =modelList.get(position).getTodayCases();
+                String died = modelList.get(position).getDeaths();
+                String daillyDied = modelList.get(position).getTodayDeaths();
+                String recov = modelList.get(position).getRecovered();
+                String daillyRecov = modelList.get(position).getTodayRecover();
+                String activeCase = modelList.get(position).getActive();
+                String criticalCase = modelList.get(position).getCritical();
+                String poulation = modelList.get(position).getPopulation();
+                String test = modelList.get(position).getTests();
+                String flagImage = modelList.get(position).getCflag();
 
                 Bundle bundle = new Bundle();
                 bundle.putString("countryname", country);
@@ -156,11 +170,8 @@ public class AllCountry extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-               myAdapter.getFilter().filter(s);
-                myAdapter.notifyDataSetChanged();
-
-
-
+                customAdapter.getFilter().filter(s);
+                customAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -170,8 +181,91 @@ public class AllCountry extends AppCompatActivity {
         });
 
     }
+    public class CustomAdapter extends BaseAdapter implements Filterable
+    {
+        List<ItemsModel> itemsModelList;
+        List<ItemsModel> itemsModelListFilter;
+        Context context;
 
-    class MyAdapter extends ArrayAdapter<String> {
+        public CustomAdapter(List<ItemsModel> itemsModelList, Context context) {
+            this.itemsModelList = itemsModelList;
+            this.itemsModelListFilter=itemsModelList;
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return itemsModelListFilter.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return itemsModelListFilter.get(position);
+        }
+
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view=getLayoutInflater().inflate(R.layout.listview_design,null);
+
+            ImageView imgs = view.findViewById(R.id.flagpic);
+            TextView name = view.findViewById(R.id.countryname);
+            TextView confirm = view.findViewById(R.id.cases);
+
+            name.setText(itemsModelListFilter.get(position).getCname());
+            confirm.setText("Total Confirmed Cases : "+itemsModelListFilter.get(position).getTcase());
+            Glide.with(context).load(itemsModelListFilter.get(position).getCflag()).into(imgs);
+            return view;
+        }
+
+        @Override
+        public Filter getFilter() {
+            Filter filter=new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults filterResults = new FilterResults();
+                    if (constraint==null || constraint.length() ==0)
+                    {
+                        filterResults.count = itemsModelList.size();
+                        filterResults.values=itemsModelList;
+                    }
+                    else
+                    {
+                        List<ItemsModel> resultModel = new ArrayList<>();
+                        String searchStr = constraint.toString().toLowerCase();
+                        for (ItemsModel itemsModel : itemsModelList)
+                        {
+                            if (itemsModel.getCname().toLowerCase().contains(searchStr))
+                            {
+                                resultModel.add(itemsModel);
+                            }
+                            filterResults.count=resultModel.size();
+                            filterResults.values=resultModel;
+                        }
+                    }
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    itemsModelListFilter=(List<ItemsModel>)results.values;
+               //     itemsModelList=(List<ItemsModel>)results.values;
+                    modelList=(List<ItemsModel>)results.values;
+                    notifyDataSetChanged();
+
+                }
+            };
+            return filter;
+        }
+
+    }
+
+  /*  class MyAdapter extends ArrayAdapter<String> {
         Context context;
         ArrayList<String> countryname, countryflag, cases;
     //    ArrayList<String> searchtext;
@@ -191,7 +285,7 @@ public class AllCountry extends AppCompatActivity {
 
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View row = layoutInflater.inflate(R.layout.listview_design, parent, false);
+            View row = layoutInflater.inflate(R.layout.listview_design,parent,false);
             ImageView imgs = row.findViewById(R.id.flagpic);
             TextView name = row.findViewById(R.id.countryname);
             TextView confirm = row.findViewById(R.id.cases);
@@ -203,5 +297,5 @@ public class AllCountry extends AppCompatActivity {
             return row;
         }
 
-    }
+    } */
 }
