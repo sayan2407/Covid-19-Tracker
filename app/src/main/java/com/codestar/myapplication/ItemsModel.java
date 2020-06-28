@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.codestar.myapplication;
 
 public class ItemsModel {
      String cname,cflag,tcase;

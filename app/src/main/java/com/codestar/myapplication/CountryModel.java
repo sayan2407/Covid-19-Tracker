@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.codestar.myapplication;
 
 public class CountryModel {
     String countryName,cases,todayCases,deaths,todayDeaths,recovered,todayRecover,active,critical,population,tests,flag;

@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication">
+    package="com.codestar.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Safety"></activity>
-        <activity android:name=".CountryData" />
-        <activity android:name=".AllCountry" />
-        <activity android:name=".HomeActivity">
+        <activity android:name="com.codestar.myapplication.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.codestar.myapplication.Safety" />
+        <activity android:name="com.codestar.myapplication.CountryData" />
+        <activity
+            android:name="com.codestar.myapplication.AllCountry"
+            android:parentActivityName="com.codestar.myapplication.HomeActivity" />
+        <activity android:name="com.codestar.myapplication.HomeActivity">
+
+        </activity>
+        <activity android:name="com.codestar.myapplication.MainActivity"></activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

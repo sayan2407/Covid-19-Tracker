@@ -1,20 +1,16 @@
-package com.example.myapplication;
+package com.codestar.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Filter;
@@ -47,11 +43,13 @@ public class AllCountry extends AppCompatActivity {
     EditText search;
     List<ItemsModel> modelList=new ArrayList<>();
     CustomAdapter customAdapter;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_country);
+        toolbar=findViewById(R.id.tool_country);
         listView = findViewById(R.id.listview);
         loader = findViewById(R.id.loader);
         search = findViewById(R.id.search1);
@@ -68,9 +66,11 @@ public class AllCountry extends AppCompatActivity {
         populations = new ArrayList<String>();
         tests = new ArrayList<String>();
 
-    /*  getSupportActionBar().setTitle("Affected Countries");
+        setSupportActionBar(toolbar);
+
+      getSupportActionBar().setTitle("Affected Countries");
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      getSupportActionBar().setDisplayShowHomeEnabled(true); */
+      getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -263,6 +263,11 @@ public class AllCountry extends AppCompatActivity {
             return filter;
         }
 
+    }
+    public  String test(int n)
+    {
+        String numberAsString = String.format("%,d", n);
+        return numberAsString;
     }
 
   /*  class MyAdapter extends ArrayAdapter<String> {

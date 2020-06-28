@@ -1,17 +1,18 @@
-package com.example.myapplication;
+package com.codestar.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,11 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -106,7 +102,7 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.country:
                         startActivity(new Intent(getApplicationContext(),AllCountry.class));
                         break;
-                    case R.id.share:
+                 /*   case R.id.share:
                         Intent intent=new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
                         String shareBody="https://github.com/sayan2407/Covid-19-Tracker";
@@ -114,7 +110,34 @@ public class HomeActivity extends AppCompatActivity {
                         intent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
                         intent.putExtra(Intent.EXTRA_TEXT,shareBody);
                         startActivity(Intent.createChooser(intent,"Share Using"));
+                        break; */
+                    case R.id.about:
+                        AlertDialog.Builder builder=new AlertDialog.Builder(HomeActivity.this);
+                        builder.setCancelable(false);
+                        builder.setTitle("About Covid-19 Tracker");
+                        builder.setMessage("Covid-19 Tracker application created by CodeStar.\nUsing this application you can see worldwide covid-19 Cases i.e Total confirmed cases,Total Recovery,Total Deaths,Toal active cases etc.\nYou can see all Affected Countries and their covid-19 cases.\nOur data will update within 10 Minutes.");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.create().show();
                         break;
+                    case R.id.safety:
+                        AlertDialog.Builder builder1=new AlertDialog.Builder(HomeActivity.this);
+                        builder1.setCancelable(false);
+                        builder1.setTitle("Tips and Safety");
+                        builder1.setMessage("Under Development");
+                        builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder1.create().show();
+                        break;
+
                 }
                 return false;
             }
@@ -148,10 +171,32 @@ public class HomeActivity extends AppCompatActivity {
                     death=response.getString("deaths");
                     active=response.getString("active");
                     recover=response.getString("recovered");
-                    todaycase.setText(response.getString("todayCases"));
-                    todaydeath.setText(response.getString("todayDeaths"));
-                    todayrecover.setText(response.getString( "todayRecovered"));
+                    todaycase.setText(test(Integer.parseInt(response.getString("todayCases"))));
+                    todaydeath.setText(test(Integer.parseInt(response.getString("todayDeaths"))));
+                    todayrecover.setText(test(Integer.parseInt(response.getString( "todayRecovered"))));
                   track.setText("Track "+response.getString("affectedCountries")+" Affected Countries");
+
+
+                  tcases.setText(test(Integer.parseInt(cases)));
+                  dead.setText(test(Integer.parseInt(death)));
+                  recovered.setText(test(Integer.parseInt(recover)));
+                  activecase.setText(test(Integer.parseInt(active)));
+                  acase.setText(test(Integer.parseInt(active)));
+                  mildcondition.setText(test(Integer.parseInt(active) - Integer.parseInt(response.getString("critical"))));
+                  scondition.setText(test(Integer.parseInt(response.getString( "critical"))));
+                  double b=((Integer.parseInt(response.getString( "critical")) / Integer.parseInt(active))* 100);
+                  double b1 =((Integer.parseInt(active) - Integer.parseInt(response.getString("critical"))) / Integer.parseInt(active)) * 100 ;
+             //     pcondition.setText(new DecimalFormat("##.##").format(b1)+"%");
+             //     spcondition.setText(new DecimalFormat("##.##").format(b)+"%");
+                  closecase.setText(test(Integer.parseInt(recover) + Integer.parseInt(death)));
+                  rec.setText(test(Integer.parseInt(recover)));
+                  died.setText(test(Integer.parseInt(death)));
+
+                  double b2=(Integer.parseInt(recover) /(Integer.parseInt(recover) + Integer.parseInt(death))) * 100;
+            //      prec.setText(new DecimalFormat("##.##").format(b2)+"%");
+                  double b4=(Integer.parseInt(death) / (Integer.parseInt(recover) + Integer.parseInt(death))) *100 ;
+            //      pdied.setText(new DecimalFormat("##.##").format(b4)+"%");
+
                     c=Float.parseFloat(cases);
                     d=Float.parseFloat(death);
                     a=Float.parseFloat(active);
@@ -182,13 +227,13 @@ public class HomeActivity extends AppCompatActivity {
         });
         requestQueue.add(jsonObjectRequest);
 
-        RequestQueue queue=Volley.newRequestQueue(getApplicationContext());
+  /*      RequestQueue queue=Volley.newRequestQueue(getApplicationContext());
         JsonObjectRequest objectRequest=new JsonObjectRequest(Request.Method.GET, "https://corona-virus-stats.herokuapp.com/api/v1/cases/general-stats", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     JSONObject data=response.getJSONObject("data");
-                    tcases.setText(data.getString("total_cases"));
+                  //  tcases.setText(data.getString("total_cases"));
                     recovered.setText(data.getString("recovery_cases"));
                     dead.setText(data.getString("death_cases"));
                     activecase.setText(data.getString("currently_infected"));
@@ -214,7 +259,7 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
-        queue.add(objectRequest);
+        queue.add(objectRequest); */
 
 
 
@@ -240,6 +285,11 @@ public class HomeActivity extends AppCompatActivity {
             backToast.show();
         }
         back=System.currentTimeMillis();
+    }
+    public  String test(int n)
+    {
+        String numberAsString = String.format("%,d", n);
+        return numberAsString;
     }
 
     public void track_country(View view) {

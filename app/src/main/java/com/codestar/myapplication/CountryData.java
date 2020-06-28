@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.codestar.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,6 +36,9 @@ public class CountryData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_data);
         setuptoolbar();
+    /*    getSupportActionBar().setTitle("Affected Countries");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true); */
         MobileAds.initialize(this,"ca-app-pub-6849909083372425~5754406553");
         mAdView = findViewById(R.id.adView1);
         mAdView1 = findViewById(R.id.adView2);
@@ -95,31 +98,36 @@ public class CountryData extends AppCompatActivity {
 
         cname.setText(countryname);
         Glide.with(getApplicationContext()).load(flagImage).into(flags);
-        popu.setText("Population of "+countryname+" is : "+population);
+        popu.setText("Population of "+countryname+" is : "+test(Integer.parseInt(population)));
 
-        totalcase.setText(cases);
-        totaldeath.setText(deaths);
-        totalrecovery.setText(recovery);
-        totalactive.setText(activecase);
-        acase.setText(activecase);
-        scond.setText(criticalcase);
+        totalcase.setText(test(Integer.parseInt(cases)));
+        totaldeath.setText(test(Integer.parseInt(deaths)));
+        totalrecovery.setText(test(Integer.parseInt(recovery)));
+        totalactive.setText(test(Integer.parseInt(activecase)));
+        acase.setText(test(Integer.parseInt(activecase)));
+        scond.setText(test(Integer.parseInt(criticalcase)));
         mildcondition=Integer.toString(Integer.parseInt(activecase)-Integer.parseInt(criticalcase));
-        mcond.setText(mildcondition);
+        mcond.setText(test(Integer.parseInt(mildcondition)));
         closecases=Integer.toString(Integer.parseInt(recovery)+Integer.parseInt(deaths));
-        close.setText(closecases);
-        recovered.setText(recovery);
-        dead.setText(deaths);
-        todaycase.setText(tcase);
-        todaydeath.setText(tdeath);
-        todayrecovery.setText(trecover);
+        close.setText(test(Integer.parseInt(closecases)));
+        recovered.setText(test(Integer.parseInt(recovery)));
+        dead.setText(test(Integer.parseInt(deaths)));
+        todaycase.setText(test(Integer.parseInt(tcase)));
+        todaydeath.setText(test(Integer.parseInt(tdeath)));
+        todayrecovery.setText(test(Integer.parseInt(trecover)));
 
 
 
     }
+    public  String test(int n)
+    {
+        String numberAsString = String.format("%,d", n);
+        return numberAsString;
+    }
     public void setuptoolbar()
     {
         toolbar=findViewById(R.id.datatoolbar);
-       // setSupportActionBar(toolbar);
+     //   setSupportActionBar(toolbar);
     }
 
 }
