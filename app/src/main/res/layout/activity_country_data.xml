@@ -38,18 +38,7 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView1"
-                android:layout_marginTop="20sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/unit_id">
-            </com.google.android.gms.ads.AdView>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="20sp"
@@ -145,18 +134,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView2"
-                android:layout_marginTop="20sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/unit_id">
-            </com.google.android.gms.ads.AdView>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="20sp"
@@ -237,18 +215,7 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView3"
-                android:layout_marginTop="20sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/unit_id">
-            </com.google.android.gms.ads.AdView>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="20sp"
@@ -344,18 +311,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView4"
-                android:layout_marginTop="20sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/unit_id">
-            </com.google.android.gms.ads.AdView>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="20sp"
@@ -451,18 +407,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView5"
-                android:layout_marginTop="20sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/unit_id">
-            </com.google.android.gms.ads.AdView>
 
             <androidx.cardview.widget.CardView
                 android:elevation="@dimen/cardview_compat_inset_shadow"

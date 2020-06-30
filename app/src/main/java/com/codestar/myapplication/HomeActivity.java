@@ -26,9 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+
 import com.google.android.material.navigation.NavigationView;
 import com.leo.simplearcloader.SimpleArcLoader;
 
@@ -56,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView navigationView;
-    private AdView mAdView,mAdView1,mAdView2,mAdView3,mAdView4;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -143,18 +141,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        MobileAds.initialize(this,"ca-app-pub-6849909083372425~5754406553");
-        mAdView = findViewById(R.id.adView);
-        mAdView1 = findViewById(R.id.adView1);
-        mAdView2 = findViewById(R.id.adView2);
-        mAdView3 = findViewById(R.id.adView3);
-        mAdView4 = findViewById(R.id.adView4);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        mAdView1.loadAd(adRequest);
-        mAdView2.loadAd(adRequest);
-        mAdView3.loadAd(adRequest);
-        mAdView4.loadAd(adRequest);
+
 
         final List<SliceValue> pieData = new ArrayList<>();
 
